@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banao Digital — Creative Digital Solutions | Nashik</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --navy: #0D1B35;
+            --navy-mid: #152342;
+            --navy-light: #1E3055;
+            --orange: #F47C20;
+            --orange-light: #FF9A45;
+            --white: #FFFFFF;
+            --off-white: #F5F6FA;
+            --gray: #8892A4;
+            --border: #E8ECF0;
+        }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; background: #fff; color: var(--navy); overflow-x: hidden; }
+
+        /* ──────── NAV ──────── */
+        #navbar {
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            padding: 22px 6%; display: flex; align-items: center;
+            justify-content: space-between; transition: all .35s ease;
+        }
+        #navbar.scrolled {
+            background: rgba(13,27,53,.96); backdrop-filter: blur(12px);
+            padding: 14px 6%; box-shadow: 0 4px 30px rgba(0,0,0,.25);
+        }
+        .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .logo-svg { width: 38px; height: 38px; }
+        .logo-name { font-family: 'Poppins', sans-serif; font-size: 1.35rem; font-weight: 700; color: #fff; }
+        .logo-name em { color: var(--orange); font-style: normal; }
+        .nav-links { display: flex; align-items: center; gap: 30px; list-style: none; }
+        .nav-links a {
+            color: rgba(255,255,255,.75); text-decoration: none; font-size: .9rem;
+            font-weight: 500; position: relative; transition: color .25s;
+        }
+        .nav-links a::after {
+            content: ''; position: absolute; bottom: -4px; left: 0;
+            width: 0; height: 2px; background: var(--orange); transition: width .3s;
+        }
+        .nav-links a:hover { color: #fff; }
+        .nav-links a:hover::after { width: 100%; }
+        .nav-cta {
+            background: var(--orange) !important; color: #fff !important;
+            padding: 10px 26px; border-radius: 50px; font-weight: 600 !important;
+        }
+        .nav-cta:hover { background: var(--orange-light) !important; transform: translateY(-2px); box-shadow: 0 8px 22px rgba(244,124,32,.4); }
+        .nav-cta::after { display: none !important; }
+        .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; }
+        .hamburger span { display: block; width: 26px; height: 2px; background: #fff; border-radius: 2px; transition: all .3s; }
+
+        /* ──────── HERO ──────── */
+        .hero {
+            min-height: 100vh; background: var(--navy); position: relative;
+            display: flex; align-items: center; overflow: hidden;
+        }
+        #particleCanvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+        .hero-inner { position: relative; z-index: 2; padding: 0 6%; max-width: 680px; }
+        .hero-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(244,124,32,.12); border: 1px solid rgba(244,124,32,.3);
+            color: var(--orange); padding: 8px 18px; border-radius: 50px;
+            font-size: .75rem; font-weight: 700; letter-spacing: 1.5px;
+            text-transform: uppercase; margin-bottom: 28px;
+            animation: fadeUp .8s ease both;
+        }
+        .pulse-dot { width: 7px; height: 7px; background: var(--orange); border-radius: 50%; animation: pulse 2s infinite; }
+        .hero h1 {
+            font-family: 'Poppins', sans-serif; font-size: clamp(2.6rem,5.5vw,5rem);
+            font-weight: 800; color: #fff; line-height: 1.08; margin-bottom: 26px;
+            animation: fadeUp .8s ease .2s both;
+        }
+        .hero h1 em { color: var(--orange); font-style: normal; display: block; }
+        .hero-sub {
+            font-size: 1.05rem; color: rgba(255,255,255,.6); line-height: 1.75;
+            max-width: 500px; margin-bottom: 44px;
+            animation: fadeUp .8s ease .4s both;
+        }
+        .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; animation: fadeUp .8s ease .6s both; }
+        .btn-primary {
+            background: var(--orange); color: #fff; padding: 14px 34px;
+            border-radius: 50px; text-decoration: none; font-weight: 600;
+            font-size: .95rem; display: inline-flex; align-items: center;
+            gap: 8px; transition: all .3s; border: none; cursor: pointer;
+        }
+        .btn-primary:hover { background: var(--orange-light); transform: translateY(-3px); box-shadow: 0 14px 32px rgba(244,124,32,.4); }
+        .btn-ghost {
+            border: 1.5px solid rgba(255,255,255,.25); color: #fff; padding: 14px 34px;
+            border-radius: 50px; text-decoration: none; font-weight: 600;
+            font-size: .95rem; transition: all .3s; backdrop-filter: blur(4px);
+        }
+        .btn-ghost:hover { border-color: var(--orange); background: rgba(244,124,32,.1); transform: translateY(-3px); }
+        .scroll-hint {
+            position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
+            display: flex; flex-direction: column; align-items: center; gap: 8px;
+            animation: fadeUp .8s ease 1.1s both;
+        }
+        .scroll-hint p { font-size: .72rem; color: rgba(255,255,255,.35); letter-spacing: 2px; text-transform: uppercase; }
+        .mouse-icon { width: 24px; height: 38px; border: 1.5px solid rgba(255,255,255,.25); border-radius: 12px; display: flex; align-items: flex-start; justify-content: center; padding-top: 6px; }
+        .mouse-dot { width: 4px; height: 8px; background: var(--orange); border-radius: 2px; animation: scrollDot 1.8s infinite; }
+
+        /* ──────── STATS ──────── */
+        .stats-bar {
+            background: var(--navy-mid); padding: 60px 6%;
+            display: grid; grid-template-columns: repeat(4,1fr); gap: 30px;
+        }
+        .stat { text-align: center; }
+        .stat-num {
+            font-family: 'Poppins', sans-serif; font-size: 3rem;
+            font-weight: 800; color: var(--orange); display: block; line-height: 1;
+        }
+        .stat-lbl { color: rgba(255,255,255,.55); font-size: .88rem; margin-top: 6px; }
+
+        /* ──────── SHARED LAYOUT ──────── */
+        .section { padding: 100px 6%; }
+        .bg-light { background: var(--off-white); }
+        .bg-dark { background: var(--navy); }
+        .section-head { text-align: center; margin-bottom: 64px; }
+        .eyebrow { display: block; color: var(--orange); font-size: .75rem; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 12px; }
+        .section-head h2 { font-family: 'Poppins', sans-serif; font-size: clamp(1.8rem,3.5vw,2.9rem); font-weight: 700; color: var(--navy); line-height: 1.2; margin-bottom: 16px; }
+        .section-head h2.light { color: #fff; }
+        .section-head p { color: var(--gray); max-width: 540px; margin: 0 auto; line-height: 1.75; }
+        .section-head p.light { color: rgba(255,255,255,.5); }
+        .divider { width: 56px; height: 3px; background: var(--orange); border-radius: 2px; margin: 18px auto 0; }
+
+        /* ──────── SERVICES ──────── */
+        .services-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 26px; }
+        .svc-card {
+            background: #fff; border: 1px solid var(--border); border-radius: 18px;
+            padding: 38px 30px; transition: all .4s; cursor: pointer; position: relative; overflow: hidden;
+        }
+        .svc-card::after {
+            content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 3px;
+            background: var(--orange); transform: scaleX(0); transition: transform .4s;
+        }
+        .svc-card:hover { transform: translateY(-10px); box-shadow: 0 24px 60px rgba(13,27,53,.13); border-color: transparent; }
+        .svc-card:hover::after { transform: scaleX(1); }
+        .svc-icon {
+            width: 62px; height: 62px; background: rgba(244,124,32,.1); border-radius: 15px;
+            display: flex; align-items: center; justify-content: center; margin-bottom: 26px; transition: all .3s;
+        }
+        .svc-icon i { font-size: 1.5rem; color: var(--orange); transition: color .3s; }
+        .svc-card:hover .svc-icon { background: var(--orange); }
+        .svc-card:hover .svc-icon i { color: #fff; }
+        .svc-card h3 { font-family: 'Poppins', sans-serif; font-size: 1.08rem; font-weight: 700; color: var(--navy); margin-bottom: 12px; }
+        .svc-card p { color: var(--gray); font-size: .9rem; line-height: 1.7; }
+
+        /* ──────── ABOUT ──────── */
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+        .about-visual-wrap { position: relative; padding-bottom: 30px; }
+        .about-dark-card {
+            background: var(--navy); border-radius: 22px; padding: 50px;
+            position: relative; overflow: hidden;
+        }
+        .about-dark-card::before {
+            content: ''; position: absolute; top: -60px; right: -60px;
+            width: 220px; height: 220px; background: rgba(244,124,32,.12); border-radius: 50%;
+        }
+        .about-dark-card h3 { font-family: 'Poppins', sans-serif; font-size: 2rem; font-weight: 800; color: #fff; line-height: 1.2; margin: 12px 0; position: relative; z-index: 1; }
+        .about-dark-card h3 em { color: var(--orange); font-style: normal; }
+        .about-dark-card p { color: rgba(255,255,255,.55); line-height: 1.7; font-size: .95rem; position: relative; z-index: 1; }
+        .about-mini-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 30px; position: relative; z-index: 1; }
+        .mini-stat {
+            background: rgba(255,255,255,.06); border-radius: 14px; padding: 22px;
+            text-align: center; border: 1px solid rgba(255,255,255,.08);
+        }
+        .mini-stat span { font-family: 'Poppins', sans-serif; font-size: 2.2rem; font-weight: 800; color: var(--orange); }
+        .mini-stat p { color: rgba(255,255,255,.45); font-size: .82rem; margin-top: 4px; }
+        .float-badge {
+            position: absolute; bottom: -10px; right: -20px;
+            background: #fff; border-radius: 15px; padding: 18px 22px;
+            box-shadow: 0 18px 50px rgba(0,0,0,.15); display: flex; align-items: center; gap: 14px;
+            animation: floatY 4s ease-in-out infinite;
+        }
+        .badge-icon { width: 46px; height: 46px; background: rgba(244,124,32,.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .badge-icon i { color: var(--orange); }
+        .about-text h2 { font-family: 'Poppins', sans-serif; font-size: clamp(1.7rem,3vw,2.5rem); font-weight: 700; color: var(--navy); margin-bottom: 20px; line-height: 1.25; }
+        .about-text h2 em { color: var(--orange); font-style: normal; }
+        .about-text > p { color: var(--gray); line-height: 1.8; margin-bottom: 14px; }
+        .check-list { list-style: none; margin-top: 28px; display: flex; flex-direction: column; gap: 12px; }
+        .check-list li { display: flex; align-items: center; gap: 12px; font-weight: 500; color: var(--navy); }
+        .check-list li i { color: var(--orange); font-size: .95rem; }
+
+        /* ──────── WHY US ──────── */
+        .why-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 22px; max-width: 860px; margin: 0 auto; }
+        .why-card {
+            display: flex; gap: 18px; padding: 28px; background: #fff;
+            border-radius: 16px; border: 1px solid var(--border); transition: all .35s;
+        }
+        .why-card:hover { transform: translateY(-5px); box-shadow: 0 12px 34px rgba(13,27,53,.1); border-color: transparent; }
+        .why-ic { width: 50px; height: 50px; background: rgba(244,124,32,.1); border-radius: 13px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .why-ic i { color: var(--orange); font-size: 1.2rem; }
+        .why-card h4 { font-family: 'Poppins', sans-serif; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+        .why-card p { color: var(--gray); font-size: .88rem; line-height: 1.65; }
+
+        /* ──────── PROCESS ──────── */
+        .process-steps { display: grid; grid-template-columns: repeat(4,1fr); gap: 22px; position: relative; }
+        .process-line {
+            position: absolute; top: 44px; left: 12%; width: 76%; height: 1px;
+            background: linear-gradient(to right, transparent, rgba(244,124,32,.4), transparent);
+        }
+        .p-step { text-align: center; position: relative; z-index: 1; }
+        .step-circle {
+            width: 88px; height: 88px; border: 2px solid rgba(244,124,32,.4); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; margin: 0 auto 28px;
+            background: var(--navy); font-family: 'Poppins', sans-serif;
+            font-size: 1.7rem; font-weight: 800; color: var(--orange); transition: all .4s;
+        }
+        .p-step:hover .step-circle { background: var(--orange); color: #fff; border-color: var(--orange); transform: scale(1.1) rotate(10deg); }
+        .p-step h4 { font-family: 'Poppins', sans-serif; color: #fff; font-weight: 700; margin-bottom: 10px; }
+        .p-step p { color: rgba(255,255,255,.45); font-size: .88rem; line-height: 1.65; }
+
+        /* ──────── PORTFOLIO ──────── */
+        .portfolio-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+        .port-card {
+            border-radius: 18px; overflow: hidden; position: relative;
+            aspect-ratio: 4/3; cursor: pointer;
+        }
+        .port-bg { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+        .port-overlay {
+            position: absolute; inset: 0; background: rgba(13,27,53,.85);
+            opacity: 0; transition: all .4s; display: flex; align-items: center;
+            justify-content: center; flex-direction: column; gap: 10px;
+        }
+        .port-card:hover .port-overlay { opacity: 1; }
+        .port-card:hover { transform: scale(1.02); }
+        .port-overlay h4 { font-family: 'Poppins', sans-serif; color: #fff; font-weight: 700; font-size: 1.1rem; }
+        .port-overlay span { color: var(--orange); font-size: .85rem; }
+
+        /* ──────── TESTIMONIALS ──────── */
+        .testi-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 26px; }
+        .testi-card {
+            background: #fff; border-radius: 18px; padding: 36px;
+            box-shadow: 0 4px 24px rgba(13,27,53,.07); position: relative; transition: all .35s;
+        }
+        .testi-card:hover { transform: translateY(-7px); box-shadow: 0 18px 48px rgba(13,27,53,.13); }
+        .big-quote { position: absolute; top: 18px; right: 22px; font-size: 3.5rem; color: var(--orange); opacity: .15; font-family: Georgia, serif; line-height: 1; }
+        .stars { color: var(--orange); font-size: .85rem; margin-bottom: 16px; }
+        .testi-text { color: var(--gray); line-height: 1.75; font-size: .92rem; margin-bottom: 26px; }
+        .author { display: flex; align-items: center; gap: 14px; }
+        .author-av { width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: var(--orange); font-family: 'Poppins', sans-serif; font-weight: 700; color: #fff; font-size: 1rem; flex-shrink: 0; }
+        .author-name { font-weight: 700; color: var(--navy); font-size: .95rem; }
+        .author-role { color: var(--gray); font-size: .82rem; }
+
+        /* ──────── CTA STRIP ──────── */
+        .cta-strip {
+            background: var(--navy); padding: 80px 6%;
+            display: flex; align-items: center; justify-content: space-between;
+            gap: 40px; position: relative; overflow: hidden;
+        }
+        .cta-strip::before {
+            content: ''; position: absolute; right: -80px; top: -80px;
+            width: 380px; height: 380px;
+            background: radial-gradient(circle, rgba(244,124,32,.18) 0%, transparent 70%);
+        }
+        .cta-strip::after {
+            content: ''; position: absolute; left: -60px; bottom: -60px;
+            width: 280px; height: 280px;
+            background: radial-gradient(circle, rgba(244,124,32,.1) 0%, transparent 70%);
+        }
+        .cta-copy { position: relative; z-index: 1; }
+        .cta-copy h2 { font-family: 'Poppins', sans-serif; font-size: clamp(1.6rem,3vw,2.5rem); font-weight: 700; color: #fff; }
+        .cta-copy h2 em { color: var(--orange); font-style: normal; }
+        .cta-copy p { color: rgba(255,255,255,.5); margin-top: 8px; }
+        .cta-strip .btn-primary { position: relative; z-index: 1; flex-shrink: 0; font-size: 1rem; padding: 16px 44px; }
+
+        /* ──────── CONTACT ──────── */
+        .contact-grid { display: grid; grid-template-columns: 1fr 1.35fr; gap: 80px; align-items: start; }
+        .contact-info h2 { font-family: 'Poppins', sans-serif; font-size: clamp(1.7rem,3vw,2.4rem); font-weight: 700; color: var(--navy); margin-bottom: 14px; }
+        .contact-info h2 em { color: var(--orange); font-style: normal; }
+        .contact-info > p { color: var(--gray); line-height: 1.75; margin-bottom: 38px; }
+        .c-detail { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 22px; }
+        .c-ico { width: 48px; height: 48px; background: rgba(244,124,32,.1); border-radius: 13px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .c-ico i { color: var(--orange); }
+        .c-detail-lbl { font-size: .75rem; color: var(--gray); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-bottom: 2px; }
+        .c-detail-val { color: var(--navy); font-weight: 600; font-size: .95rem; text-decoration: none; }
+        .c-detail-val:hover { color: var(--orange); }
+        .c-form {
+            background: #fff; border-radius: 22px; padding: 46px;
+            box-shadow: 0 10px 50px rgba(13,27,53,.09); border: 1px solid var(--border);
+        }
+        .c-form h3 { font-family: 'Poppins', sans-serif; font-weight: 700; color: var(--navy); margin-bottom: 28px; font-size: 1.3rem; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .f-group { margin-bottom: 20px; }
+        .f-group.full { grid-column: 1/-1; }
+        .f-group label { display: block; font-size: .83rem; font-weight: 600; color: var(--navy); margin-bottom: 8px; }
+        .f-group input, .f-group select, .f-group textarea {
+            width: 100%; padding: 13px 16px; border: 1.5px solid var(--border); border-radius: 11px;
+            font-family: 'Inter', sans-serif; font-size: .9rem; color: var(--navy);
+            outline: none; transition: border-color .3s; background: #FAFBFC;
+        }
+        .f-group input:focus, .f-group select:focus, .f-group textarea:focus { border-color: var(--orange); background: #fff; box-shadow: 0 0 0 3px rgba(244,124,32,.08); }
+        .f-group textarea { resize: vertical; min-height: 126px; }
+        .btn-send {
+            width: 100%; background: var(--orange); color: #fff; border: none;
+            padding: 16px; border-radius: 50px; font-family: 'Poppins', sans-serif;
+            font-size: 1rem; font-weight: 700; cursor: pointer; transition: all .3s;
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+        }
+        .btn-send:hover { background: var(--orange-light); transform: translateY(-3px); box-shadow: 0 12px 28px rgba(244,124,32,.4); }
+
+        /* ──────── FOOTER ──────── */
+        footer { background: #060E1E; padding: 70px 6% 30px; }
+        .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1.3fr; gap: 48px; margin-bottom: 56px; }
+        .footer-brand > p { color: rgba(255,255,255,.42); font-size: .88rem; line-height: 1.7; margin-top: 16px; }
+        .social-row { display: flex; gap: 10px; margin-top: 24px; }
+        .social-a {
+            width: 38px; height: 38px; border: 1px solid rgba(255,255,255,.12);
+            border-radius: 9px; display: flex; align-items: center; justify-content: center;
+            color: rgba(255,255,255,.4); text-decoration: none; font-size: .88rem; transition: all .3s;
+        }
+        .social-a:hover { border-color: var(--orange); background: var(--orange); color: #fff; }
+        .fc h4 { font-family: 'Poppins', sans-serif; color: #fff; font-weight: 600; margin-bottom: 20px; }
+        .fc ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+        .fc ul a { color: rgba(255,255,255,.45); text-decoration: none; font-size: .9rem; transition: color .3s; display: flex; align-items: center; gap: 8px; }
+        .fc ul a:hover { color: var(--orange); }
+        .fc ul a i { color: var(--orange); font-size: .8rem; }
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,.07); padding-top: 28px;
+            display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+        }
+        .footer-bottom p { color: rgba(255,255,255,.3); font-size: .84rem; }
+        .footer-bottom a { color: rgba(255,255,255,.3); text-decoration: none; }
+        .footer-bottom a:hover { color: var(--orange); }
+        .footer-tagline { color: var(--orange) !important; font-family: 'Poppins', sans-serif; font-weight: 700; font-size: .95rem; letter-spacing: 1px; }
+
+        /* ──────── ANIMATIONS ──────── */
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes pulse { 0%,100% { transform: scale(1); opacity: 1; } 50% { transform: scale(.7); opacity: .5; } }
+        @keyframes scrollDot { 0% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; transform: translateY(14px); } }
+        @keyframes floatY { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        .reveal { opacity: 0; transform: translateY(32px); transition: opacity .7s ease, transform .7s ease; }
+        .reveal.in { opacity: 1; transform: translateY(0); }
+        .d1 { transition-delay: .1s; } .d2 { transition-delay: .2s; }
+        .d3 { transition-delay: .3s; } .d4 { transition-delay: .4s; }
+        .d5 { transition-delay: .5s; } .d6 { transition-delay: .6s; }
+
+        /* ──────── MOBILE NAV ──────── */
+        .mob-nav {
+            position: fixed; top: 0; right: -100%; width: 280px; height: 100vh;
+            background: var(--navy); z-index: 999; padding: 80px 32px 40px;
+            transition: right .4s ease; display: flex; flex-direction: column; gap: 6px;
+        }
+        .mob-nav.open { right: 0; }
+        .mob-nav a { color: rgba(255,255,255,.75); text-decoration: none; font-size: 1.05rem; font-weight: 500; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,.07); transition: color .3s; }
+        .mob-nav a:hover { color: var(--orange); }
+        .overlay { position: fixed; inset: 0; background: rgba(0,0,0,.55); z-index: 998; opacity: 0; pointer-events: none; transition: opacity .35s; }
+        .overlay.show { opacity: 1; pointer-events: all; }
+
+        /* ──────── RESPONSIVE ──────── */
+        @media (max-width: 1080px) {
+            .services-grid { grid-template-columns: repeat(2,1fr); }
+            .portfolio-grid { grid-template-columns: repeat(2,1fr); }
+        }
+        @media (max-width: 900px) {
+            .about-grid, .contact-grid { grid-template-columns: 1fr; }
+            .about-visual-wrap { padding-bottom: 50px; }
+            .process-steps { grid-template-columns: repeat(2,1fr); }
+            .process-line { display: none; }
+            .stats-bar { grid-template-columns: repeat(2,1fr); }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+            .cta-strip { flex-direction: column; text-align: center; }
+        }
+        @media (max-width: 640px) {
+            .nav-links { display: none; }
+            .hamburger { display: flex; }
+            .services-grid, .testi-grid, .portfolio-grid, .why-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .form-row { grid-template-columns: 1fr; }
+            .footer-bottom { justify-content: center; text-align: center; }
+            .hero h1 { font-size: 2.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ────── NAVBAR ────── -->
+<nav id="navbar">
+    <a href="#" class="logo">
+        <svg class="logo-svg" viewBox="0 0 38 38" fill="none">
+            <circle cx="11" cy="19" r="9" fill="white" opacity=".92"/>
+            <path d="M19 10 Q31 10 31 19 Q31 28 19 28" stroke="#F47C20" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <circle cx="19" cy="31" r="3.5" fill="#F47C20"/>
+        </svg>
+        <span class="logo-name">banao <em>digital</em></span>
+    </a>
+    <ul class="nav-links">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#process">Process</a></li>
+        <li><a href="#portfolio">Work</a></li>
+        <li><a href="#testimonials">Clients</a></li>
+        <li><a href="#contact" class="nav-cta">Get Started</a></li>
+    </ul>
+    <button class="hamburger" onclick="toggleNav()" aria-label="Menu">
+        <span></span><span></span><span></span>
+    </button>
+</nav>
+
+<div class="mob-nav" id="mobNav">
+    <a href="#services" onclick="closeNav()">Services</a>
+    <a href="#about" onclick="closeNav()">About</a>
+    <a href="#process" onclick="closeNav()">Process</a>
+    <a href="#portfolio" onclick="closeNav()">Work</a>
+    <a href="#testimonials" onclick="closeNav()">Clients</a>
+    <a href="#contact" onclick="closeNav()">Contact</a>
+</div>
+<div class="overlay" id="overlay" onclick="closeNav()"></div>
+
+<!-- ────── HERO ────── -->
+<section class="hero" id="home">
+    <canvas id="particleCanvas"></canvas>
+    <div class="hero-inner">
+        <div class="hero-badge"><div class="pulse-dot"></div>Creative Digital Solutions</div>
+        <h1>We Create.<em>You Grow.</em></h1>
+        <p class="hero-sub">Banao Digital crafts powerful digital experiences — from bold brand identities to high-converting websites and data-driven campaigns that drive real results.</p>
+        <div class="hero-btns">
+            <a href="#contact" class="btn-primary">Start Your Project <i class="fas fa-arrow-right"></i></a>
+            <a href="#services" class="btn-ghost">Explore Services</a>
+        </div>
+    </div>
+    <div class="scroll-hint">
+        <div class="mouse-icon"><div class="mouse-dot"></div></div>
+        <p>Scroll</p>
+    </div>
+</section>
+
+<!-- ────── STATS ────── -->
+<div class="stats-bar">
+    <div class="stat reveal">
+        <span class="stat-num" data-target="150" data-suffix="+">0</span>
+        <div class="stat-lbl">Projects Delivered</div>
+    </div>
+    <div class="stat reveal d1">
+        <span class="stat-num" data-target="98" data-suffix="%">0</span>
+        <div class="stat-lbl">Client Satisfaction</div>
+    </div>
+    <div class="stat reveal d2">
+        <span class="stat-num" data-target="50" data-suffix="+">0</span>
+        <div class="stat-lbl">Happy Brands</div>
+    </div>
+    <div class="stat reveal d3">
+        <span class="stat-num" data-target="5" data-suffix="+">0</span>
+        <div class="stat-lbl">Years of Excellence</div>
+    </div>
+</div>
+
+<!-- ────── SERVICES ────── -->
+<section class="section" id="services">
+    <div class="section-head reveal">
+        <span class="eyebrow">What We Do</span>
+        <h2>Digital Services That Drive<br>Real Business Growth</h2>
+        <p>End-to-end digital marketing solutions — from strategy to execution — tailored to your goals.</p>
+        <div class="divider"></div>
+    </div>
+    <div class="services-grid">
+        <div class="svc-card reveal d1">
+            <div class="svc-icon"><i class="fas fa-search"></i></div>
+            <h3>Search Engine Optimization</h3>
+            <p>Rank higher on Google and drive consistent organic traffic with proven technical, on-page and off-page SEO strategies.</p>
+        </div>
+        <div class="svc-card reveal d2">
+            <div class="svc-icon"><i class="fas fa-heart"></i></div>
+            <h3>Social Media Marketing</h3>
+            <p>Build brand presence and audience engagement across Instagram, Facebook, LinkedIn and more with compelling content.</p>
+        </div>
+        <div class="svc-card reveal d3">
+            <div class="svc-icon"><i class="fas fa-laptop-code"></i></div>
+            <h3>Web Design & Development</h3>
+            <p>Beautiful, fast, mobile-first websites built to convert visitors into customers — crafted to your brand's identity.</p>
+        </div>
+        <div class="svc-card reveal d1">
+            <div class="svc-icon"><i class="fas fa-bullhorn"></i></div>
+            <h3>Paid Advertising (PPC)</h3>
+            <p>Maximise ROI with expertly managed Google Ads and Meta Ads campaigns — data-driven, goal-focused, results-backed.</p>
+        </div>
+        <div class="svc-card reveal d2">
+            <div class="svc-icon"><i class="fas fa-pen-nib"></i></div>
+            <h3>Content Marketing</h3>
+            <p>Educate, engage and convert your audience with high-quality blogs, videos, infographics and brand storytelling.</p>
+        </div>
+        <div class="svc-card reveal d3">
+            <div class="svc-icon"><i class="fas fa-palette"></i></div>
+            <h3>Brand Identity & Design</h3>
+            <p>Craft a powerful visual brand — logos, colour systems, typography and guidelines that set you apart from the crowd.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ────── ABOUT ────── -->
+<section class="section bg-light" id="about">
+    <div class="about-grid">
+        <div class="about-visual-wrap reveal">
+            <div class="about-dark-card">
+                <span class="eyebrow" style="text-align:left;display:block;">Nashik's Digital Studio</span>
+                <h3>Making Brands<br><em>Unstoppable</em></h3>
+                <p>Since our founding, Banao Digital has helped businesses across Maharashtra go from invisible to unmissable online.</p>
+                <div class="about-mini-grid">
+                    <div class="mini-stat"><span>5+</span><p>Years Experience</p></div>
+                    <div class="mini-stat"><span>50+</span><p>Brands Grown</p></div>
+                </div>
+            </div>
+            <div class="float-badge">
+                <div class="badge-icon"><i class="fas fa-trophy"></i></div>
+                <div>
+                    <div style="font-family:'Poppins',sans-serif;font-weight:700;color:var(--navy);font-size:.92rem;">Top Rated Agency</div>
+                    <div style="color:var(--gray);font-size:.78rem;">Nashik, Maharashtra</div>
+                </div>
+            </div>
+        </div>
+        <div class="about-text reveal d2">
+            <span class="eyebrow" style="text-align:left;display:block;">About Banao Digital</span>
+            <h2>The Creative Force Behind<br><em>Digital Transformations</em></h2>
+            <p>Based in Nashik, we're a passionate team of designers, developers and marketers who believe every business deserves a powerful digital presence.</p>
+            <p>We combine creativity with strategy to build brands that don't just look good — they perform. Whether you're a startup or an enterprise, we tailor our approach to your goals.</p>
+            <ul class="check-list">
+                <li><i class="fas fa-check-circle"></i>Customised strategies for every client</li>
+                <li><i class="fas fa-check-circle"></i>Transparent reporting & real-time insights</li>
+                <li><i class="fas fa-check-circle"></i>Full-stack digital marketing under one roof</li>
+                <li><i class="fas fa-check-circle"></i>Dedicated account manager for your brand</li>
+                <li><i class="fas fa-check-circle"></i>Data-driven decisions, measurable growth</li>
+            </ul>
+            <a href="#contact" class="btn-primary" style="display:inline-flex;margin-top:36px;">Work With Us <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </div>
+</section>
+
+<!-- ────── WHY US ────── -->
+<section class="section">
+    <div class="section-head reveal">
+        <span class="eyebrow">Why Choose Us</span>
+        <h2>What Makes Banao Digital Different</h2>
+        <p>We don't just run campaigns — we become your long-term digital growth partner.</p>
+        <div class="divider"></div>
+    </div>
+    <div class="why-grid">
+        <div class="why-card reveal d1">
+            <div class="why-ic"><i class="fas fa-bolt"></i></div>
+            <div><h4>Fast Turnaround</h4><p>We respect your time. Campaigns launch quickly and deliverables hit deadlines — every single time.</p></div>
+        </div>
+        <div class="why-card reveal d2">
+            <div class="why-ic"><i class="fas fa-chart-line"></i></div>
+            <div><h4>Results-Focused</h4><p>Every strategy is tied to measurable business outcomes — traffic, leads, and revenue that you can see.</p></div>
+        </div>
+        <div class="why-card reveal d3">
+            <div class="why-ic"><i class="fas fa-users"></i></div>
+            <div><h4>Dedicated Team</h4><p>A committed crew that understands your brand and works as an extension of your own business.</p></div>
+        </div>
+        <div class="why-card reveal d4">
+            <div class="why-ic"><i class="fas fa-handshake"></i></div>
+            <div><h4>Full Transparency</h4><p>No black boxes. Regular updates, clear reports and open conversations — always honest with you.</p></div>
+        </div>
+    </div>
+</section>
+
+<!-- ────── PROCESS ────── -->
+<section class="section bg-dark" id="process">
+    <div class="section-head reveal">
+        <span class="eyebrow">How We Work</span>
+        <h2 class="light">Our Simple 4-Step Process</h2>
+        <p class="light">From discovery to delivery — a process built for clarity and consistent results.</p>
+        <div class="divider"></div>
+    </div>
+    <div class="process-steps">
+        <div class="process-line"></div>
+        <div class="p-step reveal d1">
+            <div class="step-circle">01</div>
+            <h4>Discovery</h4>
+            <p>We dive into your brand, industry, and competition to uncover where the real opportunity lies.</p>
+        </div>
+        <div class="p-step reveal d2">
+            <div class="step-circle">02</div>
+            <h4>Strategy</h4>
+            <p>A bespoke digital strategy crafted around your business goals and the audience you want to reach.</p>
+        </div>
+        <div class="p-step reveal d3">
+            <div class="step-circle">03</div>
+            <h4>Execute</h4>
+            <p>Our experts implement the plan with precision — on time, on budget, perfectly on brand.</p>
+        </div>
+        <div class="p-step reveal d4">
+            <div class="step-circle">04</div>
+            <h4>Grow & Optimise</h4>
+            <p>We track, measure and refine continuously — compounding performance gains every month.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ────── PORTFOLIO ────── -->
+<section class="section" id="portfolio">
+    <div class="section-head reveal">
+        <span class="eyebrow">Our Work</span>
+        <h2>Projects We're Proud Of</h2>
+        <p>A glimpse at the brands we've transformed with creative digital solutions.</p>
+        <div class="divider"></div>
+    </div>
+    <div class="portfolio-grid">
+        <div class="port-card reveal d1" style="background:linear-gradient(135deg,#0D1B35 0%,#1E3055 100%);">
+            <div class="port-bg">
+                <svg width="120" height="80" viewBox="0 0 120 80"><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="rgba(244,124,32,0.8)" font-size="14" font-family="Poppins" font-weight="700">E-Commerce Brand</text></svg>
+            </div>
+            <div class="port-overlay">
+                <h4>ShopMart Redesign</h4>
+                <span>Web Design + SEO</span>
+            </div>
+        </div>
+        <div class="port-card reveal d2" style="background:linear-gradient(135deg,#F47C20 0%,#FF9A45 100%);">
+            <div class="port-bg">
+                <svg width="120" height="80" viewBox="0 0 120 80"><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-size="14" font-family="Poppins" font-weight="700">Restaurant Brand</text></svg>
+            </div>
+            <div class="port-overlay">
+                <h4>Spice Garden Campaign</h4>
+                <span>Social Media + Branding</span>
+            </div>
+        </div>
+        <div class="port-card reveal d3" style="background:linear-gradient(135deg,#152342 0%,#0D1B35 100%);">
+            <div class="port-bg">
+                <svg width="120" height="80" viewBox="0 0 120 80"><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="rgba(244,124,32,0.8)" font-size="14" font-family="Poppins" font-weight="700">Real Estate Co.</text></svg>
+            </div>
+            <div class="port-overlay">
+                <h4>PropNashik Launch</h4>
+                <span>PPC + Landing Pages</span>
+            </div>
+        </div>
+        <div class="port-card reveal d1" style="background:linear-gradient(135deg,#FF9A45 0%,#F47C20 100%);">
+            <div class="port-bg">
+                <svg width="120" height="80" viewBox="0 0 120 80"><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-size="14" font-family="Poppins" font-weight="700">Fashion Brand</text></svg>
+            </div>
+            <div class="port-overlay">
+                <h4>StyleHub Identity</h4>
+                <span>Brand Identity + Social</span>
+            </div>
+        </div>
+        <div class="port-card reveal d2" style="background:linear-gradient(135deg,#1E3055 0%,#0D1B35 100%);">
+            <div class="port-bg">
+                <svg width="120" height="80" viewBox="0 0 120 80"><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="rgba(244,124,32,0.8)" font-size="14" font-family="Poppins" font-weight="700">Tech Startup</text></svg>
+            </div>
+            <div class="port-overlay">
+                <h4>TechPulse Nashik</h4>
+                <span>Full Digital Strategy</span>
+            </div>
+        </div>
+        <div class="port-card reveal d3" style="background:linear-gradient(135deg,#F47C20 0%,#0D1B35 100%);">
+            <div class="port-bg">
+                <svg width="120" height="80" viewBox="0 0 120 80"><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-size="14" font-family="Poppins" font-weight="700">Healthcare Clinic</text></svg>
+            </div>
+            <div class="port-overlay">
+                <h4>HealthFirst Clinic</h4>
+                <span>SEO + Content + Web</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ────── TESTIMONIALS ────── -->
+<section class="section bg-light" id="testimonials">
+    <div class="section-head reveal">
+        <span class="eyebrow">Client Stories</span>
+        <h2>What Our Clients Say</h2>
+        <p>Don't take our word for it — hear from the brands we've helped grow.</p>
+        <div class="divider"></div>
+    </div>
+    <div class="testi-grid">
+        <div class="testi-card reveal d1">
+            <div class="big-quote">"</div>
+            <div class="stars">★★★★★</div>
+            <p class="testi-text">Banao Digital completely transformed our online presence. Our website traffic tripled in just 4 months and we're finally getting quality leads consistently every week.</p>
+            <div class="author">
+                <div class="author-av">RK</div>
+                <div><div class="author-name">Rohit Kulkarni</div><div class="author-role">CEO, TechStart Nashik</div></div>
+            </div>
+        </div>
+        <div class="testi-card reveal d2">
+            <div class="big-quote">"</div>
+            <div class="stars">★★★★★</div>
+            <p class="testi-text">The social media campaigns they ran for us were exceptional. We saw a 200% increase in engagement and our brand is now recognised all across Maharashtra.</p>
+            <div class="author">
+                <div class="author-av" style="background:#1E3055;">PS</div>
+                <div><div class="author-name">Priya Shah</div><div class="author-role">Founder, Bloom Boutique</div></div>
+            </div>
+        </div>
+        <div class="testi-card reveal d3">
+            <div class="big-quote">"</div>
+            <div class="stars">★★★★★</div>
+            <p class="testi-text">Annu and the team are brilliant. They redesigned our website and our conversion rate jumped by 85%. Best investment we've made for our business by far.</p>
+            <div class="author">
+                <div class="author-av" style="background:#152342;">AM</div>
+                <div><div class="author-name">Amit Mane</div><div class="author-role">Director, Mane Enterprises</div></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ────── CTA STRIP ────── -->
+<div class="cta-strip reveal">
+    <div class="cta-copy">
+        <h2>Ready to Grow Your<br><em>Digital Presence?</em></h2>
+        <p>Let's build something extraordinary together. One call is all it takes.</p>
+    </div>
+    <a href="#contact" class="btn-primary">Start Today <i class="fas fa-arrow-right"></i></a>
+</div>
+
+<!-- ────── CONTACT ────── -->
+<section class="section" id="contact">
+    <div class="contact-grid">
+        <div class="contact-info reveal">
+            <span class="eyebrow" style="text-align:left;display:block;">Get In Touch</span>
+            <h2>Let's Build Something<br><em>Amazing Together</em></h2>
+            <p>Have a project in mind? Our team will get back to you within 24 hours.</p>
+            <div class="c-detail">
+                <div class="c-ico"><i class="fas fa-phone"></i></div>
+                <div>
+                    <div class="c-detail-lbl">Call Us</div>
+                    <a class="c-detail-val" href="tel:+917972804824">+91 7972804824</a>
+                </div>
+            </div>
+            <div class="c-detail">
+                <div class="c-ico"><i class="fas fa-envelope"></i></div>
+                <div>
+                    <div class="c-detail-lbl">Email Us</div>
+                    <a class="c-detail-val" href="mailto:annujha@banaodigital.in">annujha@banaodigital.in</a>
+                </div>
+            </div>
+            <div class="c-detail">
+                <div class="c-ico"><i class="fas fa-globe"></i></div>
+                <div>
+                    <div class="c-detail-lbl">Website</div>
+                    <a class="c-detail-val" href="https://banaodigital.com" target="_blank">banaodigital.com</a>
+                </div>
+            </div>
+            <div class="c-detail">
+                <div class="c-ico"><i class="fas fa-map-marker-alt"></i></div>
+                <div>
+                    <div class="c-detail-lbl">Visit Us</div>
+                    <p class="c-detail-val" style="font-weight:500;color:var(--gray);">Parkside Avenue, PATHARDI Road,<br>PATHARDI Phata, Nashik — 422009</p>
+                </div>
+            </div>
+        </div>
+        <div class="c-form reveal d2">
+            <h3>Send Us a Message</h3>
+            <div class="form-row">
+                <div class="f-group"><label>Your Name</label><input type="text" placeholder="Rohit Sharma"></div>
+                <div class="f-group"><label>Phone Number</label><input type="tel" placeholder="+91 98765 43210"></div>
+                <div class="f-group"><label>Email Address</label><input type="email" placeholder="you@company.com"></div>
+                <div class="f-group">
+                    <label>Service Needed</label>
+                    <select>
+                        <option value="">Select a service...</option>
+                        <option>SEO Optimization</option>
+                        <option>Social Media Marketing</option>
+                        <option>Web Design & Development</option>
+                        <option>Paid Advertising (PPC)</option>
+                        <option>Content Marketing</option>
+                        <option>Brand Identity & Design</option>
+                    </select>
+                </div>
+                <div class="f-group full"><label>Your Message</label><textarea placeholder="Tell us about your project and goals..."></textarea></div>
+            </div>
+            <button class="btn-send" id="sendBtn"><i class="fas fa-paper-plane"></i>Send Message</button>
+        </div>
+    </div>
+</section>
+
+<!-- ────── FOOTER ────── -->
+<footer>
+    <div class="footer-grid">
+        <div class="footer-brand">
+            <a href="#" class="logo">
+                <svg class="logo-svg" viewBox="0 0 38 38" fill="none">
+                    <circle cx="11" cy="19" r="9" fill="white" opacity=".92"/>
+                    <path d="M19 10 Q31 10 31 19 Q31 28 19 28" stroke="#F47C20" stroke-width="3" fill="none" stroke-linecap="round"/>
+                    <circle cx="19" cy="31" r="3.5" fill="#F47C20"/>
+                </svg>
+                <span class="logo-name">banao <em>digital</em></span>
+            </a>
+            <p>Creative digital solutions for brands that want to stand out, scale up, and stay ahead in today's competitive market.</p>
+            <div class="social-row">
+                <a href="#" class="social-a"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-a"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-a"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="social-a"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-a"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+        <div class="fc">
+            <h4>Services</h4>
+            <ul>
+                <li><a href="#services">SEO Optimization</a></li>
+                <li><a href="#services">Social Media</a></li>
+                <li><a href="#services">Web Design</a></li>
+                <li><a href="#services">PPC Advertising</a></li>
+                <li><a href="#services">Content Marketing</a></li>
+                <li><a href="#services">Brand Identity</a></li>
+            </ul>
+        </div>
+        <div class="fc">
+            <h4>Company</h4>
+            <ul>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#portfolio">Our Work</a></li>
+                <li><a href="#process">Our Process</a></li>
+                <li><a href="#testimonials">Client Stories</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+        <div class="fc">
+            <h4>Contact Info</h4>
+            <ul>
+                <li><a href="tel:+917972804824"><i class="fas fa-phone"></i>+91 7972804824</a></li>
+                <li><a href="mailto:annujha@banaodigital.in"><i class="fas fa-envelope"></i>annujha@banaodigital.in</a></li>
+                <li><a href="https://banaodigital.com" target="_blank"><i class="fas fa-globe"></i>banaodigital.com</a></li>
+                <li style="color:rgba(255,255,255,.4);font-size:.88rem;display:flex;gap:8px;align-items:flex-start;"><i class="fas fa-map-marker-alt" style="color:var(--orange);margin-top:3px;"></i>Parkside Ave, PATHARDI Phata,<br>Nashik — 422009</li>
+            </ul>
+            <p class="footer-tagline" style="margin-top:24px;">WE CREATE. YOU GROW.</p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2025 <span style="color:var(--orange);">Banao Digital</span>. All rights reserved. Crafted with ❤️ in Nashik.</p>
+        <div style="display:flex;gap:20px;">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+        </div>
+    </div>
+</footer>
+
+<script>
+/* ── NAV SCROLL ── */
+const nb = document.getElementById('navbar');
+window.addEventListener('scroll', () => nb.classList.toggle('scrolled', scrollY > 60));
+
+function toggleNav() {
+    document.getElementById('mobNav').classList.toggle('open');
+    document.getElementById('overlay').classList.toggle('show');
+}
+function closeNav() {
+    document.getElementById('mobNav').classList.remove('open');
+    document.getElementById('overlay').classList.remove('show');
+}
+
+/* ── REVEAL ON SCROLL ── */
+const revealObs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+/* ── COUNTER ANIMATION ── */
+function runCounter(el) {
+    const target = +el.dataset.target;
+    const suffix = el.dataset.suffix || '+';
+    const dur = 2200;
+    const start = performance.now();
+    function tick(now) {
+        const progress = Math.min((now - start) / dur, 1);
+        const ease = 1 - Math.pow(1 - progress, 4);
+        el.textContent = Math.floor(ease * target) + suffix;
+        if (progress < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+}
+const statsObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+        if (e.isIntersecting) {
+            e.target.querySelectorAll('.stat-num').forEach(runCounter);
+            statsObs.unobserve(e.target);
+        }
+    });
+}, { threshold: 0.5 });
+document.querySelector('.stats-bar') && statsObs.observe(document.querySelector('.stats-bar'));
+
+/* ── PARTICLE HERO CANVAS ── */
+const canvas = document.getElementById('particleCanvas');
+const ctx = canvas.getContext('2d');
+let W, H, particles = [];
+
+function resize() {
+    W = canvas.width = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+}
+
+function makeParticles() {
+    particles = [];
+    const n = Math.floor((W * H) / 14000);
+    for (let i = 0; i < n; i++) {
+        particles.push({
+            x: Math.random() * W, y: Math.random() * H,
+            r: Math.random() * 1.8 + 0.4,
+            vx: (Math.random() - .5) * .35,
+            vy: (Math.random() - .5) * .35,
+            op: Math.random() * .5 + .08
+        });
+    }
+}
+
+window.addEventListener('resize', () => { resize(); makeParticles(); });
+resize();
+makeParticles();
+
+let t = 0;
+function draw() {
+    ctx.clearRect(0, 0, W, H);
+    t += 0.008;
+
+    /* particles */
+    particles.forEach((p, i) => {
+        p.x += p.vx; p.y += p.vy;
+        if (p.x < 0 || p.x > W) p.vx *= -1;
+        if (p.y < 0 || p.y > H) p.vy *= -1;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(244,124,32,${p.op})`;
+        ctx.fill();
+
+        for (let j = i + 1; j < particles.length; j++) {
+            const dx = particles[j].x - p.x, dy = particles[j].y - p.y;
+            const d = Math.hypot(dx, dy);
+            if (d < 130) {
+                ctx.beginPath();
+                ctx.moveTo(p.x, p.y);
+                ctx.lineTo(particles[j].x, particles[j].y);
+                ctx.strokeStyle = `rgba(244,124,32,${.06 * (1 - d / 130)})`;
+                ctx.lineWidth = .6;
+                ctx.stroke();
+            }
+        }
+    });
+
+    /* rotating hexagons on right side */
+    const cx = W * .76, cy = H * .5;
+    const sizes = [200, 130, 70];
+    const speeds = [.18, -.26, .4];
+    const opacs = [.12, .22, .35];
+    sizes.forEach((r, i) => {
+        ctx.save();
+        ctx.translate(cx, cy);
+        ctx.rotate(t * speeds[i]);
+        ctx.strokeStyle = `rgba(244,124,32,${opacs[i]})`;
+        ctx.lineWidth = 1.2;
+        ctx.beginPath();
+        for (let k = 0; k < 6; k++) {
+            const a = (k / 6) * Math.PI * 2;
+            k === 0 ? ctx.moveTo(Math.cos(a) * r, Math.sin(a) * r)
+                     : ctx.lineTo(Math.cos(a) * r, Math.sin(a) * r);
+        }
+        ctx.closePath(); ctx.stroke();
+        ctx.restore();
+    });
+
+    /* glow */
+    const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, 180);
+    g.addColorStop(0, 'rgba(244,124,32,.07)');
+    g.addColorStop(1, 'transparent');
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.arc(cx, cy, 180, 0, Math.PI * 2);
+    ctx.fill();
+
+    requestAnimationFrame(draw);
+}
+draw();
+
+/* ── SEND BUTTON ── */
+document.getElementById('sendBtn').addEventListener('click', function() {
+    this.innerHTML = '<i class="fas fa-check"></i>Message Sent!';
+    this.style.background = '#22c55e';
+    this.style.boxShadow = '0 12px 28px rgba(34,197,94,.4)';
+    setTimeout(() => {
+        this.innerHTML = '<i class="fas fa-paper-plane"></i>Send Message';
+        this.style.background = '';
+        this.style.boxShadow = '';
+    }, 3500);
+});
+</script>
+</body>
+</html>

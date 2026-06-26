@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banao Digital | Creative Digital Solutions</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Alpine.js for simple micro-interactions -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandDark: '#0B1220',
+                        brandOrange: '#FF7A00',
+                        brandOrangeHover: '#E06B00',
+                        brandLight: '#F8F9FA'
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        .animate-float { animation: float 4s ease-in-out infinite; }
+        
+        /* Reveal animation utility */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-brandLight font-sans text-gray-800 overflow-x-hidden" x-data="{ mobileMenu: false }">
+
+    <!-- HEADER / NAVIGATION -->
+    <nav class="fixed w-full z-50 bg-brandDark/95 backdrop-blur-md text-white border-b border-white/10 shadow-lg">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <!-- Brand Logo Frame -->
+            <a href="#" class="flex items-center space-x-2 group">
+                <span class="text-2xl font-bold tracking-wider text-white">banao<span class="text-brandOrange">DIGITAL</span></span>
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-8 font-medium">
+                <a href="#home" class="hover:text-brandOrange transition duration-300">Home</a>
+                <a href="#services" class="hover:text-brandOrange transition duration-300">Services</a>
+                <a href="#about" class="hover:text-brandOrange transition duration-300">Why Us</a>
+                <a href="#contact" class="hover:text-brandOrange transition duration-300">Contact</a>
+            </div>
+
+            <!-- CTA Button -->
+            <div class="hidden md:block">
+                <a href="#contact" class="bg-brandOrange text-white px-6 py-2.5 rounded-full font-semibold shadow-lg hover:bg-brandOrangeHover transform hover:-translate-y-0.5 transition-all duration-300">
+                    Get Free Consultation
+                </a>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button @click="mobileMenu = !mobileMenu" class="md:hidden text-2xl text-white focus:outline-none">
+                <i class="fa-solid" :class="mobileMenu ? 'fa-times' : 'fa-bars'"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Drawer -->
+        <div x-show="mobileMenu" x-transition 
+             class="md:hidden bg-brandDark border-t border-white/10 px-6 py-4 space-y-4 flex flex-col">
+            <a href="#home" @click="mobileMenu = false" class="text-white hover:text-brandOrange">Home</a>
+            <a href="#services" @click="mobileMenu = false" class="text-white hover:text-brandOrange">Services</a>
+            <a href="#about" @click="mobileMenu = false" class="text-white hover:text-brandOrange">Why Us</a>
+            <a href="#contact" @click="mobileMenu = false" class="text-white hover:text-brandOrange">Contact</a>
+            <a href="#contact" @click="mobileMenu = false" class="inline-block text-center bg-brandOrange text-white px-6 py-2 rounded-full font-semibold">Get Started</a>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section id="home" class="relative min-h-screen bg-brandDark text-white flex items-center pt-20 overflow-hidden">
+        <!-- Abstract Background Shape mimicking the card -->
+        <div class="absolute inset-y-0 right-0 w-1/2 bg-gradient-to-l from-brandOrange/10 to-transparent hidden lg:block"></div>
+        <div class="absolute -bottom-10 -left-10 w-72 h-72 bg-brandOrange/5 rounded-full blur-3xl"></div>
+        
+        <div class="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
+            <!-- Left Copy -->
+            <div class="space-y-6 text-center lg:text-left">
+                <div class="inline-flex items-center space-x-2 bg-white/5 border border-white/10 px-4 py-1.5 rounded-full text-sm font-medium tracking-wide text-brandOrange">
+                    <span class="flex h-2 w-2 rounded-full bg-brandOrange animate-pulse"></span>
+                    <span>Creative Digital Solutions</span>
+                </div>
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight">
+                    We Create.<br><span class="text-brandOrange">You Grow.</span>
+                </h1>
+                <p class="text-gray-400 text-lg max-w-lg mx-auto lg:mx-0">
+                    Transform your digital footprint with high-impact marketing, interactive development, and strategic scaling models built for modern business growth.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 pt-4">
+                    <a href="#services" class="bg-brandOrange text-white px-8 py-4 rounded-xl font-bold text-lg shadow-xl shadow-brandOrange/20 hover:bg-brandOrangeHover transition-all duration-300 text-center">
+                        Explore Our Solutions
+                    </a>
+                    <a href="#contact" class="border border-white/20 hover:border-brandOrange px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 text-center bg-white/5 backdrop-blur-sm">
+                        Let's Talk
+                    </a>
+                </div>
+            </div>
+
+            <!-- Right Visual Graphic -->
+            <div class="flex justify-center items-center relative">
+                <!-- Outer floating ring -->
+                <div class="w-72 h-72 sm:w-96 sm:h-96 border-4 border-dashed border-brandOrange/30 rounded-full absolute animate-[spin_60s_linear_infinite]"></div>
+                <!-- Card Style Container -->
+                <div class="bg-white/5 border border-white/10 p-8 rounded-3xl backdrop-blur-md shadow-2xl max-w-sm w-full animate-float relative">
+                    <div class="flex justify-between items-start mb-12">
+                        <div class="text-3xl font-bold text-white tracking-wider">banao<span class="text-brandOrange">.</span></div>
+                        <i class="fa-solid fa-bolt text-brandOrange text-2xl"></i>
+                    </div>
+                    <p class="text-gray-300 text-sm mb-6 uppercase tracking-widest font-semibold">Our Metric Focus</p>
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center border-b border-white/10 pb-2">
+                            <span class="text-gray-400">Brand Engagement</span>
+                            <span class="text-brandOrange font-bold">+180%</span>
+                        </div>
+                        <div class="flex justify-between items-center border-b border-white/10 pb-2">
+                            <span class="text-gray-400">Conversion Rate</span>
+                            <span class="text-brandOrange font-bold">4.6x Growth</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES SECTION -->
+    <section id="services" class="py-24 max-w-7xl mx-auto px-6">
+        <div class="text-center max-w-2xl mx-auto mb-16 reveal">
+            <h2 class="text-3xl sm:text-4xl font-bold text-brandDark mb-4">What We Do Best</h2>
+            <p class="text-gray-600">Tailored marketing architecture configured to turn local visibility into massive market scaling platforms.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Card 1 -->
+            <div class="bg-white border border-gray-100 p-8 rounded-2xl shadow-xl hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 reveal">
+                <div class="w-14 h-14 bg-brandOrange/10 rounded-xl flex items-center justify-center text-brandOrange text-2xl mb-6">
+                    <i class="fa-solid fa-bullhorn"></i>
+                </div>
+                <h3 class="text-xl font-bold text-brandDark mb-3">Digital Marketing</h3>
+                <p class="text-gray-600 text-sm leading-relaxed">Targeted performance marketing setups engineered to pull high-intent conversion actions directly into your pipeline.</p>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="bg-white border border-gray-100 p-8 rounded-2xl shadow-xl hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 reveal">
+                <div class="w-14 h-14 bg-brandOrange/10 rounded-xl flex items-center justify-center text-brandOrange text-2xl mb-6">
+                    <i class="fa-solid fa-laptop-code"></i>
+                </div>
+                <h3 class="text-xl font-bold text-brandDark mb-3">Creative Web Design</h3>
+                <p class="text-gray-600 text-sm leading-relaxed">Fast, interactive, responsive web designs created explicitly to balance custom animation styling with conversion optimization.</p>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="bg-white border border-gray-100 p-8 rounded-2xl shadow-xl hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 reveal">
+                <div class="w-14 h-14 bg-brandOrange/10 rounded-xl flex items-center justify-center text-brandOrange text-2xl mb-6">
+                    <i class="fa-solid fa-arrow-up-right-dots"></i>
+                </div>
+                <h3 class="text-xl font-bold text-brandDark mb-3">Brand Strategy</h3>
+                <p class="text-gray-600 text-sm leading-relaxed">Long-range visual and tactical identity planning built to position your brand consistently ahead of competitors.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHY CHOOSE US / BRAND IDENTITY -->
+    <section id="about" class="bg-brandDark text-white py-24 overflow-hidden relative">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div class="space-y-6 reveal">
+                <h2 class="text-3xl sm:text-4xl font-bold leading-tight">Elevating Businesses Across Dimensions</h2>
+                <p class="text-gray-400">At Banao Digital, we discard standardized templates. We configure tailored performance roadmaps designed exclusively around your target audience metrics, keeping you competitive from day one.</p>
+                
+                <div class="space-y-4 pt-4">
+                    <div class="flex items-start space-x-4">
+                        <div class="text-brandOrange mt-1"><i class="fa-solid fa-circle-check text-xl"></i></div>
+                        <div>
+                            <h4 class="font-semibold text-lg text-white">Data-Driven Execution</h4>
+                            <p class="text-gray-400 text-sm">Every creative solution relies on real-time consumer analytical monitoring.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-4">
+                        <div class="text-brandOrange mt-1"><i class="fa-solid fa-circle-check text-xl"></i></div>
+                        <div>
+                            <h4 class="font-semibold text-lg text-white">Seamless Modern Frameworks</h4>
+                            <p class="text-gray-400 text-sm">Our assets deploy natively across mobile and desktop environments gracefully.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-gradient-to-br from-white/5 to-white/10 p-8 rounded-3xl border border-white/10 text-center relative reveal">
+                <div class="text-brandOrange text-5xl font-extrabold mb-2">100%</div>
+                <div class="text-white text-xl font-semibold mb-6">Client Execution Focus</div>
+                <div class="w-full bg-white/10 h-3 rounded-full overflow-hidden">
+                    <div class="bg-brandOrange h-full w-[94%] rounded-full"></div>
+                </div>
+                <p class="text-gray-400 text-xs mt-4 text-left italic">"Consistently refining pathways to transform consumer actions into sustainable, organic revenue structures."</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT & FOOTER SECTION -->
+    <section id="contact" class="py-24 bg-brandLight">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12">
+            
+            <!-- Card Detailed Info Panel -->
+            <div class="bg-brandDark text-white p-10 rounded-3xl shadow-2xl flex flex-col justify-between relative overflow-hidden reveal">
+                <div class="absolute top-0 right-0 p-8 opacity-10 text-9xl pointer-events-none"><i class="fa-solid fa-address-card"></i></div>
+                
+                <div class="space-y-8 relative z-10">
+                    <div>
+                        <h2 class="text-3xl font-bold tracking-tight text-white">Banao <span class="text-brandOrange">Digital</span></h2>
+                        <p class="text-gray-400 mt-2">Creative Digital Solutions</p>
+                        <div class="w-16 h-1 bg-brandOrange mt-3"></div>
+                    </div>
+
+                    <!-- Verified Card Contact Strings -->
+                    <div class="space-y-6">
+                        <div class="flex items-center space-x-4 group">
+                            <div class="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center text-brandOrange border border-white/10 group-hover:bg-brandOrange group-hover:text-white transition-all duration-300">
+                                <i class="fa-solid fa-phone"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-400 uppercase tracking-wider font-semibold">Call Us</p>
+                                <a href="tel:+917972804424" class="text-lg font-medium hover:text-brandOrange transition">+91 7972804824</a>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center space-x-4 group">
+                            <div class="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center text-brandOrange border border-white/10 group-hover:bg-brandOrange group-hover:text-white transition-all duration-300">
+                                <i class="fa-solid fa-envelope"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-400 uppercase tracking-wider font-semibold">Email Us</p>
+                                <a href="mailto:annujha@banaodigital.in" class="text-lg font-medium hover:text-brandOrange transition">annujha@banaodigital.in</a>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center space-x-4 group">
+                            <div class="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center text-brandOrange border border-white/10 group-hover:bg-brandOrange group-hover:text-white transition-all duration-300">
+                                <i class="fa-solid fa-globe"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-400 uppercase tracking-wider font-semibold">Official Website</p>
+                                <a href="https://banaodigital.com" target="_blank" class="text-lg font-medium hover:text-brandOrange transition">banaodigital.com</a>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center space-x-4 group">
+                            <div class="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center text-brandOrange border border-white/10 group-hover:bg-brandOrange group-hover:text-white transition-all duration-300">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-400 uppercase tracking-wider font-semibold">Corporate Office Location</p>
+                                <p class="text-sm text-gray-300 leading-relaxed">
+                                    Parkside avenue PATHARDI road,<br>
+                                    PATHARDI phata nashik422009
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-12 pt-6 border-t border-white/10 text-center text-brandOrange font-semibold tracking-widest text-sm relative z-10">
+                    — We Create. You Grow. —
+                </div>
+            </div>
+
+            <!-- Interactive Working Form -->
+            <div class="bg-white p-10 rounded-3xl shadow-xl border border-gray-100 reveal">
+                <h3 class="text-2xl font-bold text-brandDark mb-2">Initiate Growth Alignment</h3>
+                <p class="text-gray-600 text-sm mb-8">Drop your requirements below; our consulting team responds within 12 business hours.</p>
+                
+                <form class="space-y-5" onsubmit="event.preventDefault(); alert('Inquiry registered! Banao Digital alignment team will connect shortly.');">
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-500 uppercase mb-2">Full Identity Name</label>
+                        <input type="text" required class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-brandOrange transition bg-gray-50" placeholder="e.g., Alex Carter">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-500 uppercase mb-2">Direct Contact Email</label>
+                        <input type="email" required class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-brandOrange transition bg-gray-50" placeholder="yourname@domain.com">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-500 uppercase mb-2">Project Brief Requirements</label>
+                        <textarea rows="4" required class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-brandOrange transition bg-gray-50 resize-none" placeholder="Describe marketing or development roadmap objectives..."></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-brandOrange text-white font-bold py-4 rounded-xl shadow-xl shadow-brandOrange/20 hover:bg-brandOrangeHover transition duration-300 uppercase tracking-wider text-sm">
+                        Send Brief
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER SIGNATURE -->
+    <footer class="bg-brandDark text-gray-500 text-xs py-6 text-center border-t border-white/5">
+        &copy; 2026 Banao Digital. All Rights Reserved. Designed natively for high performance scaling.
+    </footer>
+
+    <!-- SCROLL REVEAL INTERACTIVE SCRIPT -->
+    <script>
+        function reveal() {
+            const reveals = document.querySelectorAll(".reveal");
+            for (let i = 0; i < reveals.length; i++) {
+                let windowHeight = window.innerHeight;
+                let elementTop = reveals[i].getBoundingClientRect().top;
+                let elementVisible = 100;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        // Initial call to check visibility on direct load
+        reveal();
+    </script>
+</body>
+</html>
